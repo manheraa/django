@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [{
+            "src": "myapp/wsgi.py",
+            "use": "@vercel/python",
+            "config": { "maxLambdaSize": "15mb", "runtime": "python 3.11.0" }
+        },
+        {
+            "src": "buildfiles.sh",
+            "use": "@vercel/static-build",
+            "config": { "distDir": "staticfiles_build" }
+        }
+
+    ],
+    "routes": [{
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+    }, {
+        "src": "/static/(.*)",
+        "dest": "poll/wsgi.py"
+    }]
+}
